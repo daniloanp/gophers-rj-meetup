@@ -23,6 +23,7 @@ func (c *Container) Iterator() chan Item {
 		for i := 0; i < c.Size(); i++ {
 			channel <- c.data[i]
 		}
+		close(channel)
 	} ();
 	return channel
 }

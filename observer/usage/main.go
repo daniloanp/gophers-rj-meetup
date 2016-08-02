@@ -1,20 +1,33 @@
-package usage
+package main
 
-import "github.com/daniloanp/gophers-rj-meetup/observer"
+import (
+	"github.com/daniloanp/gophers-rj-meetup/observer"
+	"time"
+	"fmt"
+	"math/rand"
+)
 
 type Observer1 struct {}
-func (o *Observer1) Update(o Observable, arguments ...observer.Argument) {
-	
+func (_ *Observer1) Update(o observer.Observable, arguments ...observer.Argument) {
+	fmt.Println("Called, looping!!")
+	for { // looping funcion, a problematic one
+		time.Sleep(40 * time.Second)
+		fmt.Println(arguments)
+		fmt.Println("==> 1",arguments)
+	}
+
 }
 
 type Observer2 struct {}
-func (o *Observer2) Update(o Observable, arguments ...observer.Argument) {
-
+func (_ *Observer2) Update(o observer.Observable, arguments ...observer.Argument) {
+	fmt.Println("Called, waiting!!")
+	time.Sleep(5 * time.Second)
+	fmt.Println("==> 2",arguments)
 }
 
 type Observer3 struct {}
-func (o *Observer3) Update(o Observable, arguments ...observer.Argument) {
-
+func (_ *Observer3) Update(o observer.Observable, arguments ...observer.Argument) {
+	fmt.Println("===> 3",arguments)
 }
 
 type Observable struct {
@@ -24,9 +37,29 @@ type Observable struct {
 
 func (o *Observable) Notify() {
 	o.NotifyObservers(o.notifyCount)
+	o.notifyCount += 1
 }
 
 
 func main() {
+	observable := &Observable{}
+	observers := []observer.Observer {
+		new(Observer1),
+		new(Observer2),
+		new(Observer3),
+	}
+
+	for _,o := range observers {
+		observable.AddObserver(o)
+	}
+
+	fmt.Println("Beginning cycle!")
+
+	for {
+		sleepTime := time.Duration(4 + rand.Intn(40)%5) * time.Second
+		fmt.Println("Sleep time:", sleepTime)
+		time.Sleep(sleepTime)
+		observable.Notify()
+	}
 
 }
