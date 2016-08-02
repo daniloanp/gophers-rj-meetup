@@ -7,23 +7,24 @@ type Trace interface {
 	Error(msg string)
 }
 
-//TraceFactory interface
+//TraceFactory interface we should embedd this
 type TraceFactory interface {
 	Trace() Trace
 }
 
-var factory  = TraceFactory(nil)
-
-func CreateTrace() Trace {
-	if factory == nil {
-		return nil
-	}
-	return factory.Trace()
-}
-
-func SetFactory(f TraceFactory) {
-	factory = f
-}
+//
+//var factory  = TraceFactory(nil)
+//
+//func CreateTrace() Trace {
+//	if factory == nil {
+//		return nil
+//	}
+//	return factory.Trace()
+//}
+//
+//func SetFactory(f TraceFactory) {
+//	factory = f
+//}
 
 
 
