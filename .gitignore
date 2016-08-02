@@ -1,4 +1,7 @@
+.idea
+
 # Compiled Object files, Static and Dynamic libs (Shared Objects)
+
 *.o
 *.a
 *.so
@@ -22,3 +25,4 @@ _testmain.go
 *.exe
 *.test
 *.prof
+
