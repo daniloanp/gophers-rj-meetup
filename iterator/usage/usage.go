@@ -1,4 +1,4 @@
-package iterator
+package main
 
 import (
 	"github.com/daniloanp/gophers-rj-meetup/iterator"
@@ -6,11 +6,22 @@ import (
 )
 
 func main() {
-	var container iterator.Iterable
-	container = new(iterator.Container)
+	var container = new(iterator.Container)
+	container.Add(1)
+	container.Add(2)
+	container.Add("Gophers RJ")
+	container.Add([]float64{.5, .6, .5612})
 
-	for item := range container.Iterator() {
-		fmt.Println(item)
+	var iterable iterator.Iterable = container
+
+	for item := range iterable.Iterator() {
+		switch item.(type) {
+			case string:
+				fmt.Printf("%q\n", item.(string))
+			default:
+				fmt.Println(item)
+		}
+
 	}
 }
 
