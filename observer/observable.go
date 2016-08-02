@@ -37,10 +37,10 @@ func (b* BaseObservable) RemoveObserver(o Observer) {
 }
 
 func (b *BaseObservable) NotifyObservers(arguments ... Argument) {
+	f := func(o Observer) { //do not block if observer block
+		o.Update(b, arguments...)
+	}
 	for _, observer :=  range  b.observers {
-		f := func(o Observer) { //do not block if observer block
-			o.Update(b, arguments...)
-		}
 		go f(observer)
 	}
 }

@@ -9,18 +9,15 @@ import (
 
 type Observer1 struct {}
 func (_ *Observer1) Update(o observer.Observable, arguments ...observer.Argument) {
-	fmt.Println("Called, looping!!")
 	for { // looping funcion, a problematic one
-		time.Sleep(40 * time.Second)
+		time.Sleep(12 * time.Second)
 		fmt.Println(arguments)
 		fmt.Println("==> 1",arguments)
 	}
-
 }
 
 type Observer2 struct {}
 func (_ *Observer2) Update(o observer.Observable, arguments ...observer.Argument) {
-	fmt.Println("Called, waiting!!")
 	time.Sleep(5 * time.Second)
 	fmt.Println("==> 2",arguments)
 }
@@ -56,7 +53,7 @@ func main() {
 	fmt.Println("Beginning cycle!")
 
 	for {
-		sleepTime := time.Duration(4 + rand.Intn(40)%5) * time.Second
+		sleepTime := time.Duration(1 + rand.Intn(40)%2) * time.Second
 		fmt.Println("Sleep time:", sleepTime)
 		time.Sleep(sleepTime)
 		observable.Notify()
