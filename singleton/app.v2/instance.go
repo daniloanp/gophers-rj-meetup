@@ -1,15 +1,17 @@
 package app
 
 type app struct {
+  calls int64
   //....
 }
 
 type App interface {
-  Dist() string
+  Calls() int64
 }
 
-func (a *app) Dist() string {
-  return "App @ stone"
+func (a *app) Calls() int64 {
+  a.calls += 1
+  return a.calls
 }
 
 var appInstance *app = nil

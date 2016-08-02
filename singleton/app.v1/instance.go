@@ -1,11 +1,12 @@
 package app
 
 type App struct {
-    //....
+    calls int64
 }
 
-func (a *App) Dist() string {
-  return "App @ stone"
+func (a *App) Calls() int64 {
+  a.calls += 1
+  return a.calls
 }
 
 var app *App = nil
