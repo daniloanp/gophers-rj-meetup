@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/daniloanp/gophers-rj-meetup/observer"
+	"github.com/daniloanp/gophers-rj-meetup/observer/observer.v1"
 	"time"
 	"fmt"
 	"math/rand"

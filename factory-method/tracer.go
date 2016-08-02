@@ -1,8 +1,5 @@
 package factory_method
 
-import (
-	"io"
-)
 
 type Trace interface {
 	SetDebug(bool)
@@ -10,42 +7,23 @@ type Trace interface {
 	Error(msg string)
 }
 
-type trace struct {
-	io.Writer
-	debug bool
+//TraceFactory interface
+type TraceFactory interface {
+	Trace() Trace
 }
 
-func (t *trace) SetDebug(isDebug bool) {
-	t.debug = isDebug
-}
-////////////////////
+var factory  = TraceFactory(nil)
 
-type FileTrace struct {
-	trace
-}
-
-func (t *FileTrace) Debug(msg string) {
-	if t.debug {
-		// print msg
+func CreateTrace() Trace {
+	if factory == nil {
+		return nil
 	}
+	return factory.Trace()
 }
 
-func (t *FileTrace) Error(msg string) {
-	//print msg
-}
-////////////////////
-
-
-type ServiceTrace struct {
-	trace
+func SetFactory(f TraceFactory) {
+	factory = f
 }
 
-func (t *ServiceTrace) Debug(msg string) {
-	if t.debug {
-		// print msg
-	}
-}
 
-func (t *ServiceTrace) Error(msg string) {
-	//print msg
-}
+
